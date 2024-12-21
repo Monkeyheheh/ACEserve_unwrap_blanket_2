@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Welcome <span id="userDisplay"></span></h2>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="artificial_intelligence.html" class="active">AI Assistant</a></li>
+                    <li><a href="chatroom.html">Chatroom</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <h1>AI Assistant</h1>
+            <div class="ai-content">
+                <iframe
+                src="https://aichatbot.sendbird.com/playground/index.html?app_id=4ABCA536-1A03-4C3C-AE84-4BA709B626B1&bot_id=tV6SIunnUDhQ750oD_8eb&region=us-1"
+                width="100%"
+                style="height: 100%; min-height: 700px"
+                frameborder="0"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+        document.getElementById('userDisplay').textContent = currentUser;
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

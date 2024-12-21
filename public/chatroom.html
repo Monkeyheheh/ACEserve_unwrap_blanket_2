@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatroom</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Welcome <span id="userDisplay"></span></h2>
+            <div>
+                <p>Meant for PC. If mobile, please enable desktop site.</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="artificial_intelligence.html">AI</a></li>
+                    <li><a href="chatroom.html" class="active">Chatroom</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <h1>Chatroom</h1>
+            <div class="chatroom-container chatroom-styled">
+                <div class="chat-window" id="chatWindow"></div>
+                <input type="text" id="messageInput" placeholder="Type your message here...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+        document.getElementById('userDisplay').textContent = currentUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.innerHTML = '';
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = `${msg.user}: ${msg.text}`;
+                chatWindow.appendChild(messageElement);
+            });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value;
+            if (messageText.trim() === '') return;
+
+            const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            messages.push({ user: currentUser, text: messageText });
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
+            messageInput.value = '';
+            loadMessages();
+        }
+
+        window.onload = loadMessages;
+    </script>
+</body>
+</html>

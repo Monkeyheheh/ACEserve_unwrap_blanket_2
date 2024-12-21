@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Welcome <span id="userDisplay"></span></h2>
+            <div>
+                <p>Meant for PC. If mobile, please enable desktop site.</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="artificial_intelligence.html">AI</a></li>
+                    <li><a href="chatroom.html">Chatroom</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <h1>Dashboard</h1>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>AI Assistant</h3>
+                    <p><a href="artificial_intelligence.html">Interact with our AI assistant</a></p>
+                </div>
+                <div class="card">
+                    <h3>Chatroom</h3>
+                    <p><a href="chatroom.html">Join the chatroom</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+        document.getElementById('userDisplay').textContent = currentUser;
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
